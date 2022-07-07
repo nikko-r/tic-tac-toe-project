@@ -1,5 +1,34 @@
 $color-1: #272727;
 $color-2: #f1f1f1;
+//reset margin and padding
+* {
+    margin: 0;
+    padding: 0;
+}
+
 body {
+    height: 100vh;
+    width: 100vw;
     background-color: $color-1;
+    display: flex;
+    align-items: center; //When display is flex and direction is column this centers horizontally
+    justify-content: center; //When display is flex and direction is column this centers vertically
+    flex-direction: column;
+}
+
+header {
+    display: inline;
+}
+
+.game-grid {
+    justify-items: center;
+    align-items: center;
+    width: auto;
+    display: grid;
+    gap: 0.5rem;
+    grid-template-columns: 1fr 1fr 1fr;
+    grid-template-rows: 1fr 1fr 1fr;
+    grid-row: 1/4;
+    grid-column: 1/4;
+    margin: 5%;
 }
