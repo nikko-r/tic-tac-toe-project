@@ -1,15 +1,23 @@
 $color-1: #272727;
 $color-2: #f1f1f1;
+$line1-size: 3px;
+:root {
+    --color-1: #272727;
+    --color-2: #f1f1f1;
+}
+
 //reset margin and padding
 * {
     margin: 0;
     padding: 0;
+    color: var(--color-2);
 }
 
 body {
     height: 100vh;
     width: 100vw;
-    background-color: $color-1;
+    //overflow: scroll;
+    background-color: var(--color-1);
     display: flex;
     align-items: center; //When display is flex and direction is column this centers horizontally
     justify-content: center; //When display is flex and direction is column this centers vertically
@@ -21,14 +29,55 @@ header {
 }
 
 .game-grid {
-    justify-items: center;
-    align-items: center;
-    width: auto;
+    //Note do not add justify content or align items as this will break tic tac toe outlines
+    //Instead add it to every child element to center content inside them
+    margin: 5%;
+    width: 50vmin;
+    aspect-ratio: 1;
     display: grid;
-    gap: 0.5rem;
+    gap: 1px;
     grid-template-columns: 1fr 1fr 1fr;
     grid-template-rows: 1fr 1fr 1fr;
     grid-row: 1/4;
     grid-column: 1/4;
-    margin: 5%;
+    overflow: hidden; //Important goes with outline in child element to create the tic tac toe grid
+    .grid__box {
+        outline: 2px solid var(--color-2);
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        font-size: 60px;
+    }
+}
+
+.buttons {
+    min-width: 300px;
+    max-width: 500px;
+    min-height: 70px;
+    display: grid;
+    justify-items: stretch;
+    .buttons__item {
+        margin: 1%;
+        transition-duration: 200ms;
+        &--1 {
+            background-color: var(--color-1);
+            border: 3px solid var(--color-2);
+            color: var(--color-2);
+        }
+        &--2 {
+            background-color: var(--color-2);
+            border: 3px solid var(--color-2);
+            color: var(--color-1);
+        }
+        &--1:active {
+            background-color: var(--color-2);
+            border: 3px solid var(--color-2);
+            color: var(--color-1);
+        }
+        &--2:active {
+            background-color: var(--color-1);
+            border: 3px solid var(--color-2);
+            color: var(--color-2);
+        }
+    }
 }

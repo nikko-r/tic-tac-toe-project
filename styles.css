@@ -1,12 +1,18 @@
+:root {
+  --color-1: #272727;
+  --color-2: #f1f1f1;
+}
+
 * {
   margin: 0;
   padding: 0;
+  color: var(--color-2);
 }
 
 body {
   height: 100vh;
   width: 100vw;
-  background-color: #272727;
+  background-color: var(--color-1);
   display: flex;
   align-items: center;
   justify-content: center;
@@ -18,14 +24,53 @@ header {
 }
 
 .game-grid {
-  justify-items: center;
-  align-items: center;
-  width: auto;
+  margin: 5%;
+  width: 50vmin;
+  aspect-ratio: 1;
   display: grid;
-  gap: 0.5rem;
+  gap: 1px;
   grid-template-columns: 1fr 1fr 1fr;
   grid-template-rows: 1fr 1fr 1fr;
   grid-row: 1/4;
   grid-column: 1/4;
-  margin: 5%;
+  overflow: hidden;
+}
+.game-grid .grid__box {
+  outline: 2px solid var(--color-2);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 60px;
+}
+
+.buttons {
+  min-width: 300px;
+  max-width: 500px;
+  min-height: 70px;
+  display: grid;
+  justify-items: stretch;
+}
+.buttons .buttons__item {
+  margin: 1%;
+  transition-duration: 200ms;
+}
+.buttons .buttons__item--1 {
+  background-color: var(--color-1);
+  border: 3px solid var(--color-2);
+  color: var(--color-2);
+}
+.buttons .buttons__item--2 {
+  background-color: var(--color-2);
+  border: 3px solid var(--color-2);
+  color: var(--color-1);
+}
+.buttons .buttons__item--1:active {
+  background-color: var(--color-2);
+  border: 3px solid var(--color-2);
+  color: var(--color-1);
+}
+.buttons .buttons__item--2:active {
+  background-color: var(--color-1);
+  border: 3px solid var(--color-2);
+  color: var(--color-2);
 }/*# sourceMappingURL=styles.css.map */
