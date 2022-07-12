@@ -20,7 +20,7 @@ body {
     background-color: var(--color-1);
     display: flex;
     align-items: center; //When display is flex and direction is column this centers horizontally
-    justify-content: center; //When display is flex and direction is column this centers vertically
+    justify-content: space-between; //When display is flex and direction is column this centers vertically
     flex-direction: column;
 }
 
@@ -31,8 +31,8 @@ header {
 .game-grid {
     //Note do not add justify content or align items as this will break tic tac toe outlines
     //Instead add it to every child element to center content inside them
-    margin: 5%;
-    width: 50vmin;
+    padding: 0; //changing this will display grid outline
+    width: 60vmin; //sets to 80 mininmum view eg if width is smaller its 80 width
     aspect-ratio: 1;
     display: grid;
     gap: 1px;
@@ -46,18 +46,17 @@ header {
         display: flex;
         align-items: center;
         justify-content: center;
-        font-size: 60px;
+        font-size: 4rem;
     }
 }
 
 .buttons {
-    min-width: 300px;
-    max-width: 500px;
-    min-height: 70px;
+    width: 45vmin;
+    height: 5%;
     display: grid;
     justify-items: stretch;
     .buttons__item {
-        margin: 1%;
+        margin: 2%;
         transition-duration: 200ms;
         &--1 {
             background-color: var(--color-1);
