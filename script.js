@@ -3,26 +3,37 @@ const bDarkLightMode = document.querySelector(".buttons__item--2"); //darkmode b
 const bGameGrid = document.querySelectorAll(".grid__box"); //darkmode button
 
 //DARK MODE / LIGHT MODE
-
-let colorMode = "dark";
-const fnDarkLightMode = () => {
-    if (colorMode == "dark") {
+let colorMode = localStorage.getItem("colorMode"); //Get stored seting
+if (!colorMode) {
+    colorMode = "dark"; //if value is not set, set default setting to dark
+    localStorage.setItem("colorMode", colorMode); //Store data
+}
+//function for setting colour
+const fnSetColorMode = (color) => {
+    if (color == "light") {
+        bDarkLightMode.innerText = "DARK MODE";
         root.style.setProperty("--color-1", "#f1f1f1");
         root.style.setProperty("--color-2", "#272727");
-        colorMode = "light";
-        bDarkLightMode.innerText = "DARK MODE";
-        console.log("Light mode enabled");
-    } else if (colorMode == "light") {
+    } else if (color == "dark") {
+        bDarkLightMode.innerText = "LIGHT MODE";
         root.style.setProperty("--color-2", "#f1f1f1");
         root.style.setProperty("--color-1", "#272727");
-        colorMode = "dark";
-        bDarkLightMode.innerText = "LIGHT MODE";
-        console.log("Dark mode enabled");
     }
 };
-
+fnSetColorMode(colorMode); //on page load set colour
+//function for switching LIGHT/DARK mode
+const fnDarkLightMode = () => {
+    if (colorMode == "dark") {
+        fnSetColorMode("light");
+        colorMode = "light";
+    } else if (colorMode == "light") {
+        fnSetColorMode("dark");
+        colorMode = "dark";
+    }
+    localStorage.setItem("colorMode", colorMode);
+};
+//event listener for LIGHT/DARK mode button
 bDarkLightMode.addEventListener("click", fnDarkLightMode);
-
 // //////////////
 
 //Game should always start with an empty grid
@@ -30,11 +41,21 @@ bDarkLightMode.addEventListener("click", fnDarkLightMode);
 //player 1 and player 2 should always take in turn to be x or o
 //When a box is selected it should
 //1. check if the box is empty. If its not stop the user and send alert
-//2. if it is then it should run a matchLine function
+//2. if it is then it should run a checkWIn function
 
-//matchLine function should check for all matching lines and return them
-
+//checkWin function should check a few things like calling the
+//getMatchingLines then calculating who won from those matching lines
+//getMatchingLines function should check for all matching lines and return them
 let gameGridArr = ["", "", "", "", "", "", "", "", ""];
+let gameTurn = "x";
+let isGameInProgress = true;
+
+//NEW GAME
+// let fnNewGame = () => {
+
+// };
+// fnNewGame();
+
 //[0],[1],[2]
 //[3],[4],[5]
 //[6],[7],[8]
@@ -95,25 +116,43 @@ const fnGetMatchingLines = () => {
 const fnCheckWin = () => {
     //there can only be 1 winner so there will never be an o and x line
     //at the same time
-    if (fnGetMatchingLines().includes("x")) {
-        return "x";
-    } else if (fnGetMatchingLines().includes("o")) {
-        return "o";
-    } else {
-        return "no one";
+    if (fnGetMatchingLines().includes("x" || "o")) {
+        if (fnGetMatchingLines().includes("x")) {
+            return "x";
+        } else if (fnGetMatchingLines().includes("o")) {
+            return "o";
+        }
     }
 };
 
-console.log(`${fnCheckWin()} Won The Game`);
+//console.log(`${fnCheckWin()} Won The Game`);
 
 // bGrid.forEach((box) {
 //     box.addEventListener("click", handlePlaceXO)
 
 // })
 
-// bGameGrid.forEach((operatorButton) => { //for each element in the class
-//             //console.dir(operatorButton) //send the element info in console
-//             operatorButton.addEventListener("click", (event) => {
-//                         if (containsNumber(inputScreen.value) == false) {
-//                             return alert("There is no number to work with!")
-//                         }
+bGameGrid.forEach((box) => {
+    //for each element in the class
+    console.dir(box); //send the element info in console
+    box.addEventListener("click", (event) => {
+        if (isGameInProgress == true) {
+            if (event.target.innerText == "") {
+                //
+                gameGridArr[event.target.id] = gameTurn;
+                //
+                if (gameTurn == "x") {
+                    event.target.innerText = "X";
+                    gameTurn = "o";
+                } else if (gameTurn == "o") {
+                    event.target.innerText = "O";
+                    gameTurn = "x";
+                }
+            }
+        }
+    });
+});
+
+//const fnComputerAsPlayer
+//localStorage.setItem("pageLoadCount", 1);
+//console.log(localStorage.getItem("pageLoadCount"));
