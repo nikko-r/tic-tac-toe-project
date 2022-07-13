@@ -24,7 +24,7 @@ body {
 header {
   display: inline;
 }
-header .title {
+header .game-title {
   font-size: 3rem;
   margin-bottom: 1rem;
 }

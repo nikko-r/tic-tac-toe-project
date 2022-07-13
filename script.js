@@ -2,6 +2,7 @@ const root = document.querySelector(":root"); //Used for css variables
 const bDarkLightMode = document.querySelector(".buttons__item--2"); //darkmode button
 const bNewGame = document.querySelector(".buttons__item--1"); //newgame button
 const gameGrid = document.querySelectorAll(".grid__box"); //darkmode button
+const gameTitle = document.querySelector(".game-title"); //darkmode button
 
 //DARK MODE / LIGHT MODE
 let colorMode = localStorage.getItem("colorMode"); //Get stored seting
@@ -45,6 +46,7 @@ const fnNewGame = () => {
     gameTurn = "x";
     bNewGame.innerText = "RESET GAME";
     isGameInProgress = true;
+    gameTitle.innerText = "X's Turn";
 };
 
 bNewGame.addEventListener("click", fnNewGame);
@@ -157,9 +159,11 @@ gameGrid.forEach((box) => {
                 if (gameTurn == "x") {
                     event.target.innerText = "X";
                     gameTurn = "o";
+                    gameTitle.innerText = "O's Turn";
                 } else if (gameTurn == "o") {
                     event.target.innerText = "O";
                     gameTurn = "x";
+                    gameTitle.innerText = "X's Turn";
                 }
             }
 
