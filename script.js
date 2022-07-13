@@ -1,6 +1,7 @@
 const root = document.querySelector(":root"); //Used for css variables
 const bDarkLightMode = document.querySelector(".buttons__item--2"); //darkmode button
-const bGameGrid = document.querySelectorAll(".grid__box"); //darkmode button
+const bNewGame = document.querySelector(".buttons__item--1"); //newgame button
+const gameGrid = document.querySelectorAll(".grid__box"); //darkmode button
 
 //DARK MODE / LIGHT MODE
 let colorMode = localStorage.getItem("colorMode"); //Get stored seting
@@ -36,6 +37,18 @@ const fnDarkLightMode = () => {
 bDarkLightMode.addEventListener("click", fnDarkLightMode);
 // //////////////
 
+const fnNewGame = () => {
+    gameGridArr = ["", "", "", "", "", "", "", "", ""];
+    gameGrid.forEach((box) => {
+        box.innerText = "";
+    });
+    gameTurn = "x";
+    bNewGame.innerText = "RESET GAME";
+    isGameInProgress = true;
+};
+
+bNewGame.addEventListener("click", fnNewGame);
+
 //Game should always start with an empty grid
 //First go should always be x
 //player 1 and player 2 should always take in turn to be x or o
@@ -48,7 +61,7 @@ bDarkLightMode.addEventListener("click", fnDarkLightMode);
 //getMatchingLines function should check for all matching lines and return them
 let gameGridArr = ["", "", "", "", "", "", "", "", ""];
 let gameTurn = "x";
-let isGameInProgress = true;
+let isGameInProgress = false;
 
 //NEW GAME
 // let fnNewGame = () => {
@@ -132,7 +145,7 @@ const fnCheckWin = () => {
 
 // })
 
-bGameGrid.forEach((box) => {
+gameGrid.forEach((box) => {
     //for each element in the class
     console.dir(box); //send the element info in console
     box.addEventListener("click", (event) => {
@@ -153,13 +166,13 @@ bGameGrid.forEach((box) => {
             if (fnCheckWin() == "o" || fnCheckWin() == "x") {
                 isGameInProgress = false;
                 console.log(`${fnCheckWin()} Won the game`);
-
+                bNewGame.innerText = "NEW GAME";
                 setTimeout(() => alert(`${fnCheckWin()} Won the game`), 100);
             } else {
                 if (!gameGridArr.includes("")) {
                     isGameInProgress = false;
                     console.log(`DRAW!`);
-
+                    bNewGame.innerText = "NEW GAME";
                     setTimeout(() => alert(`DRAW`), 100);
                 }
             }
