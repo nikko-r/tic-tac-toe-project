@@ -46,7 +46,7 @@ const fnNewGame = () => {
     gameTurn = "x";
     bNewGame.innerText = "RESET GAME";
     isGameInProgress = true;
-    gameTitle.innerText = "X's Turn";
+    gameTitle.innerText = "X's TURN";
 };
 
 bNewGame.addEventListener("click", fnNewGame);
@@ -151,7 +151,9 @@ gameGrid.forEach((box) => {
     //for each element in the class
     console.dir(box); //send the element info in console
     box.addEventListener("click", (event) => {
-        if (isGameInProgress == true) {
+        if (isGameInProgress == false) {
+            alert("CLICK NEW GAME TO START A GAME!");
+        } else if (isGameInProgress == true) {
             if (event.target.innerText == "") {
                 //
                 gameGridArr[event.target.id] = gameTurn;
@@ -159,11 +161,11 @@ gameGrid.forEach((box) => {
                 if (gameTurn == "x") {
                     event.target.innerText = "X";
                     gameTurn = "o";
-                    gameTitle.innerText = "O's Turn";
+                    gameTitle.innerText = "O's TURN";
                 } else if (gameTurn == "o") {
                     event.target.innerText = "O";
                     gameTurn = "x";
-                    gameTitle.innerText = "X's Turn";
+                    gameTitle.innerText = "X's TURN";
                 }
             }
 
@@ -172,12 +174,14 @@ gameGrid.forEach((box) => {
                 console.log(`${fnCheckWin()} Won the game`);
                 bNewGame.innerText = "NEW GAME";
                 setTimeout(() => alert(`${fnCheckWin()} Won the game`), 100);
+                gameTitle.innerText = `${fnCheckWin().toUpperCase()} WON THE GAME`;
             } else {
                 if (!gameGridArr.includes("")) {
                     isGameInProgress = false;
                     console.log(`DRAW!`);
                     bNewGame.innerText = "NEW GAME";
                     setTimeout(() => alert(`DRAW`), 100);
+                    gameTitle.innerText = `DRAW!`;
                 }
             }
         }
