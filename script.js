@@ -106,6 +106,8 @@ const fnGetMatchingLines = () => {
     if (gameGridArr[6] == gameGridArr[4] && gameGridArr[4] == gameGridArr[2]) {
         matchLineArr[7] = gameGridArr[6];
     }
+    console.log(matchLineArr);
+
     return matchLineArr;
 };
 
@@ -113,15 +115,13 @@ const fnGetMatchingLines = () => {
 //     const lineArr = fnGetMatchingLines();
 // };
 
+//there can only be 1 winner so there will never be an o and x line
+//at the same time
 const fnCheckWin = () => {
-    //there can only be 1 winner so there will never be an o and x line
-    //at the same time
-    if (fnGetMatchingLines().includes("x" || "o")) {
-        if (fnGetMatchingLines().includes("x")) {
-            return "x";
-        } else if (fnGetMatchingLines().includes("o")) {
-            return "o";
-        }
+    if (fnGetMatchingLines().includes("x")) {
+        return "x";
+    } else if (fnGetMatchingLines().includes("o")) {
+        return "o";
     }
 };
 
@@ -147,6 +147,20 @@ bGameGrid.forEach((box) => {
                 } else if (gameTurn == "o") {
                     event.target.innerText = "O";
                     gameTurn = "x";
+                }
+            }
+
+            if (fnCheckWin() == "o" || fnCheckWin() == "x") {
+                isGameInProgress = false;
+                console.log(`${fnCheckWin()} Won the game`);
+
+                setTimeout(() => alert(`${fnCheckWin()} Won the game`), 100);
+            } else {
+                if (!gameGridArr.includes("")) {
+                    isGameInProgress = false;
+                    console.log(`DRAW!`);
+
+                    setTimeout(() => alert(`DRAW`), 100);
                 }
             }
         }
