@@ -25,7 +25,6 @@ const fnSetColorMode = (color) => {
 fnSetColorMode(colorMode);
 
 const fnDarkLightMode = () => {
-    console.log("darkmode button");
     if (colorMode == "dark") {
         fnSetColorMode("light");
         colorMode = "light";
@@ -38,7 +37,6 @@ const fnDarkLightMode = () => {
 bDarkLightMode.addEventListener("click", fnDarkLightMode);
 
 const fnNewGame = () => {
-    console.log("true");
     gameGridArr = ["", "", "", "", "", "", "", "", ""];
     gameGrid.forEach((box) => {
         box.innerText = "";
@@ -160,7 +158,6 @@ const fnGetMatchingLines = () => {
     if (gameGridArr[6] == gameGridArr[4] && gameGridArr[4] == gameGridArr[2]) {
         matchLineArr[7] = gameGridArr[6];
     }
-    console.log(matchLineArr);
     //setTimeout(() => fnDrawLine(matchLineArr), 100); //This is an experimental feature uncomment this for winning line. This will break buttons though
     return matchLineArr;
 };
@@ -180,16 +177,13 @@ gameGrid.forEach((box) => {
         box.getBoundingClientRect().y + box.getBoundingClientRect().height / 2;
 
     gameGridCoordsArr.push([xcoord, ycoord]);
-    console.log(gameGridCoordsArr);
 
     box.addEventListener("click", (event) => {
         if (isGameInProgress == false) {
             alert("CLICK NEW GAME TO START A GAME!");
         } else if (isGameInProgress == true) {
             if (event.target.innerText == "") {
-                //
                 gameGridArr[event.target.id] = gameTurn;
-                //
                 if (gameTurn == "x") {
                     event.target.innerText = "X";
                     gameTurn = "o";
@@ -202,17 +196,12 @@ gameGrid.forEach((box) => {
             }
 
             if (fnCheckWin() == "o" || fnCheckWin() == "x") {
-                console.log(bNewGame);
                 isGameInProgress = false;
-                console.log(`${fnCheckWin()} Won the game`);
                 bNewGame.innerText = "NEW GAME";
                 gameTitle.innerText = `${fnCheckWin().toUpperCase()} WON THE GAME`;
-                console.log(bNewGame);
             } else {
                 if (!gameGridArr.includes("")) {
                     isGameInProgress = false;
-                    console.log(`DRAW!`);
-                    setTimeout(() => alert(`DRAW`), 100);
                     gameTitle.innerText = `DRAW!`;
                 }
             }
