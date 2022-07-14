@@ -100,52 +100,68 @@ const fnDrawLine = (LineArr) => {
         if (LineArr[i] !== "") {
             switch (i) {
                 case 0:
-                    (coordArr = gameGridCoordsArr[0][0]),
-                    gameGridCoordsArr[0][1],
+                    coordArr = [
+                        gameGridCoordsArr[0][0],
+                        gameGridCoordsArr[0][1],
                         gameGridCoordsArr[2][0],
-                        gameGridCoordsArr[2][1];
+                        gameGridCoordsArr[2][1],
+                    ];
                     break;
                 case 1:
-                    (coordArr = gameGridCoordsArr[3][0]),
-                    gameGridCoordsArr[3][1],
+                    coordArr = [
+                        gameGridCoordsArr[3][0],
+                        gameGridCoordsArr[3][1],
                         gameGridCoordsArr[5][0],
-                        gameGridCoordsArr[5][1];
+                        gameGridCoordsArr[5][1],
+                    ];
                     break;
                 case 2:
-                    (coordArr = gameGridCoordsArr[6][0]),
-                    gameGridCoordsArr[6][1],
+                    coordArr = [
+                        gameGridCoordsArr[6][0],
+                        gameGridCoordsArr[6][1],
                         gameGridCoordsArr[8][0],
-                        gameGridCoordsArr[8][1];
+                        gameGridCoordsArr[8][1],
+                    ];
                     break;
                 case 3:
-                    (coordArr = gameGridCoordsArr[0][0]),
-                    gameGridCoordsArr[0][1],
+                    coordArr = [
+                        gameGridCoordsArr[0][0],
+                        gameGridCoordsArr[0][1],
                         gameGridCoordsArr[6][0],
-                        gameGridCoordsArr[6][1];
+                        gameGridCoordsArr[6][1],
+                    ];
                     break;
                 case 4:
-                    (coordArr = gameGridCoordsArr[1][0]),
-                    gameGridCoordsArr[1][1],
+                    coordArr = [
+                        gameGridCoordsArr[1][0],
+                        gameGridCoordsArr[1][1],
                         gameGridCoordsArr[7][0],
-                        gameGridCoordsArr[7][1];
+                        gameGridCoordsArr[7][1],
+                    ];
                     break;
                 case 5:
-                    (coordArr = gameGridCoordsArr[2][0]),
-                    gameGridCoordsArr[2][1],
+                    coordArr = [
+                        gameGridCoordsArr[2][0],
+                        gameGridCoordsArr[2][1],
                         gameGridCoordsArr[8][0],
-                        gameGridCoordsArr[8][1];
+                        gameGridCoordsArr[8][1],
+                    ];
                     break;
                 case 6:
-                    (coordArr = gameGridCoordsArr[0][0]),
-                    gameGridCoordsArr[0][1],
+                    coordArr = [
+                        gameGridCoordsArr[0][0],
+                        gameGridCoordsArr[0][1],
                         gameGridCoordsArr[8][0],
-                        gameGridCoordsArr[8][1];
+                        gameGridCoordsArr[8][1],
+                    ];
                     break;
                 case 7:
-                    (coordArr = gameGridCoordsArr[2][0]),
-                    gameGridCoordsArr[2][1],
+                    coordArr = [
+                        gameGridCoordsArr[2][0],
+                        gameGridCoordsArr[2][1],
                         gameGridCoordsArr[6][0],
-                        gameGridCoordsArr[6][1];
+                        gameGridCoordsArr[6][1],
+                    ];
                     break;
             }
 
