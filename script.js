@@ -94,20 +94,70 @@ let isGameInProgress = false;
 //[5] is the right verticle line
 //[6] is the left to right diagonal line
 //[7] is the right to left diagonal line
-const fnDrawLine = (x1, y1, x2, y2) => {
-    let svgColor = "";
-    if (colorMode == "dark") {
-        svgColor = "rgb(241,241,241)";
-    } else if (colorMode == "light") {
-        svgColor = "rgb(39,39,39)";
+const fnDrawLine = (LineArr) => {
+    let coordArr;
+    for (let i = 0; i < 8; i++) {
+        if (LineArr[i] !== "") {
+            switch (i) {
+                case 0:
+                    (coordArr = gameGridCoordsArr[0][0]),
+                    gameGridCoordsArr[0][1],
+                        gameGridCoordsArr[2][0],
+                        gameGridCoordsArr[2][1];
+                    break;
+                case 1:
+                    (coordArr = gameGridCoordsArr[3][0]),
+                    gameGridCoordsArr[3][1],
+                        gameGridCoordsArr[5][0],
+                        gameGridCoordsArr[5][1];
+                    break;
+                case 2:
+                    (coordArr = gameGridCoordsArr[6][0]),
+                    gameGridCoordsArr[6][1],
+                        gameGridCoordsArr[8][0],
+                        gameGridCoordsArr[8][1];
+                    break;
+                case 3:
+                    (coordArr = gameGridCoordsArr[0][0]),
+                    gameGridCoordsArr[0][1],
+                        gameGridCoordsArr[6][0],
+                        gameGridCoordsArr[6][1];
+                    break;
+                case 4:
+                    (coordArr = gameGridCoordsArr[1][0]),
+                    gameGridCoordsArr[1][1],
+                        gameGridCoordsArr[7][0],
+                        gameGridCoordsArr[7][1];
+                    break;
+                case 5:
+                    (coordArr = gameGridCoordsArr[2][0]),
+                    gameGridCoordsArr[2][1],
+                        gameGridCoordsArr[8][0],
+                        gameGridCoordsArr[8][1];
+                    break;
+                case 6:
+                    (coordArr = gameGridCoordsArr[0][0]),
+                    gameGridCoordsArr[0][1],
+                        gameGridCoordsArr[8][0],
+                        gameGridCoordsArr[8][1];
+                    break;
+                case 7:
+                    (coordArr = gameGridCoordsArr[2][0]),
+                    gameGridCoordsArr[2][1],
+                        gameGridCoordsArr[6][0],
+                        gameGridCoordsArr[6][1];
+                    break;
+            }
+
+            htmlBody.innerHTML += `<svg height="210" width="500" class="svg-win-line">
+            <line x1="${coordArr[0]}" y1="${coordArr[1]}" x2="${coordArr[2]}" y2="${coordArr[3]}"/>
+          </svg>`;
+        }
     }
-    htmlBody.innerHTML += `<svg height="210" width="500" class="svg-win-line">
-    <line x1="${x1}" y1="${y1}" x2="${x2}" y2="${y2}" style="stroke:${svgColor};stroke-width:2" />
-  </svg>`;
 };
 
 const fnGetMatchingLines = () => {
-    let matchLineArr = ["", "", "", "", "", "", "", ""];
+    const matchLineArr = ["", "", "", "", "", "", "", ""];
     //The reason why im not returning or using if else or switch case
     //is because there can be more than 1 winning line in tic tac toe
     if (gameGridArr[0] == gameGridArr[1] && gameGridArr[1] == gameGridArr[2]) {
@@ -115,12 +165,6 @@ const fnGetMatchingLines = () => {
         //this matches the top line
         //we need to draw a horizontal line at the top
         //we need to get the coords from the array and draw line
-        fnDrawLine(
-            gameGridCoordsArr[0][0],
-            gameGridCoordsArr[0][1],
-            gameGridCoordsArr[2][0],
-            gameGridCoordsArr[2][1]
-        );
     }
     if (gameGridArr[3] == gameGridArr[4] && gameGridArr[4] == gameGridArr[5]) {
         matchLineArr[1] = gameGridArr[3];
@@ -144,7 +188,7 @@ const fnGetMatchingLines = () => {
         matchLineArr[7] = gameGridArr[6];
     }
     console.log(matchLineArr);
-
+    fnDrawLine(matchLineArr);
     return matchLineArr;
 };
 

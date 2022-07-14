@@ -91,4 +91,6 @@ header .game-title {
   position: absolute;
   height: 100%;
   width: 100%;
+  stroke: var(--color-2);
+  stroke-width: 4px;
 }/*# sourceMappingURL=styles.css.map */
