@@ -158,7 +158,7 @@ const fnGetMatchingLines = () => {
     if (gameGridArr[6] == gameGridArr[4] && gameGridArr[4] == gameGridArr[2]) {
         matchLineArr[7] = gameGridArr[6];
     }
-    //setTimeout(() => fnDrawLine(matchLineArr), 100); //This is an experimental feature uncomment this for winning line. This will break buttons though
+    setTimeout(() => fnDrawLine(matchLineArr), 100); //This is an experimental feature uncomment this for winning line. This will break buttons though
     return matchLineArr;
 };
 
