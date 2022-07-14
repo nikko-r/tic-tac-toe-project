@@ -1,4 +1,5 @@
 const root = document.querySelector(":root"); //Used for css variables
+const htmlBody = document.querySelector("body");
 const bDarkLightMode = document.querySelector(".buttons__item--2"); //darkmode button
 const bNewGame = document.querySelector(".buttons__item--1"); //newgame button
 const gameGrid = document.querySelectorAll(".grid__box"); //darkmode button
@@ -62,6 +63,7 @@ bNewGame.addEventListener("click", fnNewGame);
 //getMatchingLines then calculating who won from those matching lines
 //getMatchingLines function should check for all matching lines and return them
 let gameGridArr = ["", "", "", "", "", "", "", "", ""];
+let gameGridCoordsArr = [];
 let gameTurn = "x";
 let isGameInProgress = false;
 
@@ -92,6 +94,17 @@ let isGameInProgress = false;
 //[5] is the right verticle line
 //[6] is the left to right diagonal line
 //[7] is the right to left diagonal line
+const fnDrawLine = (x1, y1, x2, y2) => {
+    let svgColor = "";
+    if (colorMode == "dark") {
+        svgColor = "rgb(241,241,241)";
+    } else if (colorMode == "light") {
+        svgColor = "rgb(39,39,39)";
+    }
+    htmlBody.innerHTML += `<svg height="210" width="500" class="svg-win-line">
+    <line x1="${x1}" y1="${y1}" x2="${x2}" y2="${y2}" style="stroke:${svgColor};stroke-width:2" />
+  </svg>`;
+};
 
 const fnGetMatchingLines = () => {
     let matchLineArr = ["", "", "", "", "", "", "", ""];
@@ -99,6 +112,15 @@ const fnGetMatchingLines = () => {
     //is because there can be more than 1 winning line in tic tac toe
     if (gameGridArr[0] == gameGridArr[1] && gameGridArr[1] == gameGridArr[2]) {
         matchLineArr[0] = gameGridArr[0]; //add top line winning char to top line position
+        //this matches the top line
+        //we need to draw a horizontal line at the top
+        //we need to get the coords from the array and draw line
+        fnDrawLine(
+            gameGridCoordsArr[0][0],
+            gameGridCoordsArr[0][1],
+            gameGridCoordsArr[2][0],
+            gameGridCoordsArr[2][1]
+        );
     }
     if (gameGridArr[3] == gameGridArr[4] && gameGridArr[4] == gameGridArr[5]) {
         matchLineArr[1] = gameGridArr[3];
@@ -150,6 +172,16 @@ const fnCheckWin = () => {
 gameGrid.forEach((box) => {
     //for each element in the class
     console.dir(box); //send the element info in console
+
+    //Gets the center coordinates of every box
+    const xcoord =
+        box.getBoundingClientRect().x + box.getBoundingClientRect().width / 2;
+    const ycoord =
+        box.getBoundingClientRect().y + box.getBoundingClientRect().height / 2;
+
+    gameGridCoordsArr.push([xcoord, ycoord]);
+    console.log(gameGridCoordsArr);
+
     box.addEventListener("click", (event) => {
         if (isGameInProgress == false) {
             alert("CLICK NEW GAME TO START A GAME!");
