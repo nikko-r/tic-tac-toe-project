@@ -1,17 +1,16 @@
-const root = document.querySelector(":root"); //Used for css variables
+const root = document.querySelector(":root");
 const htmlBody = document.querySelector("body");
-const bDarkLightMode = document.querySelector(".buttons__item--2"); //darkmode button
-const bNewGame = document.querySelector(".buttons__item--1"); //newgame button
-const gameGrid = document.querySelectorAll(".grid__box"); //darkmode button
-const gameTitle = document.querySelector(".game-title"); //darkmode button
+const bDarkLightMode = document.querySelector(".buttons__item--2");
+const bNewGame = document.querySelector(".buttons__item--1");
+const gameGrid = document.querySelectorAll(".grid__box");
+const gameTitle = document.querySelector(".game-title");
+const svgWinLine = document.querySelector(".svg-win-line");
 
-//DARK MODE / LIGHT MODE
-let colorMode = localStorage.getItem("colorMode"); //Get stored seting
+let colorMode = localStorage.getItem("colorMode");
 if (!colorMode) {
-    colorMode = "dark"; //if value is not set, set default setting to dark
-    localStorage.setItem("colorMode", colorMode); //Store data
+    colorMode = "dark";
+    localStorage.setItem("colorMode", colorMode);
 }
-//function for setting colour
 const fnSetColorMode = (color) => {
     if (color == "light") {
         bDarkLightMode.innerText = "DARK MODE";
@@ -23,9 +22,10 @@ const fnSetColorMode = (color) => {
         root.style.setProperty("--color-1", "#272727");
     }
 };
-fnSetColorMode(colorMode); //on page load set colour
-//function for switching LIGHT/DARK mode
+fnSetColorMode(colorMode);
+
 const fnDarkLightMode = () => {
+    console.log("darkmode button");
     if (colorMode == "dark") {
         fnSetColorMode("light");
         colorMode = "light";
@@ -35,11 +35,10 @@ const fnDarkLightMode = () => {
     }
     localStorage.setItem("colorMode", colorMode);
 };
-//event listener for LIGHT/DARK mode button
 bDarkLightMode.addEventListener("click", fnDarkLightMode);
-// //////////////
 
 const fnNewGame = () => {
+    console.log("true");
     gameGridArr = ["", "", "", "", "", "", "", "", ""];
     gameGrid.forEach((box) => {
         box.innerText = "";
@@ -52,48 +51,11 @@ const fnNewGame = () => {
 
 bNewGame.addEventListener("click", fnNewGame);
 
-//Game should always start with an empty grid
-//First go should always be x
-//player 1 and player 2 should always take in turn to be x or o
-//When a box is selected it should
-//1. check if the box is empty. If its not stop the user and send alert
-//2. if it is then it should run a checkWIn function
-
-//checkWin function should check a few things like calling the
-//getMatchingLines then calculating who won from those matching lines
-//getMatchingLines function should check for all matching lines and return them
 let gameGridArr = ["", "", "", "", "", "", "", "", ""];
 let gameGridCoordsArr = [];
 let gameTurn = "x";
 let isGameInProgress = false;
 
-//NEW GAME
-// let fnNewGame = () => {
-
-// };
-// fnNewGame();
-
-//[0],[1],[2]
-//[3],[4],[5]
-//[6],[7],[8]
-
-//let matchLineArr = ["", "", "", "", "", "", "", ""];
-//matchLineArr
-//[6]           [7]
-//   [ ],[ ],[ ] - [0]
-//   [ ],[ ],[ ] - [1]
-//   [ ],[ ],[ ] - [2]
-//    |   |   |
-//   [3],[4],[5]
-
-//[0] is the top horizontal line
-//[1] is the middle horizontal line
-//[2] is the bottom horizontal line
-//[3] is the left verticle line
-//[4] is the middle verticle line
-//[5] is the right verticle line
-//[6] is the left to right diagonal line
-//[7] is the right to left diagonal line
 const fnDrawLine = (LineArr) => {
     let coordArr;
     for (let i = 0; i < 8; i++) {
@@ -174,13 +136,8 @@ const fnDrawLine = (LineArr) => {
 
 const fnGetMatchingLines = () => {
     const matchLineArr = ["", "", "", "", "", "", "", ""];
-    //The reason why im not returning or using if else or switch case
-    //is because there can be more than 1 winning line in tic tac toe
     if (gameGridArr[0] == gameGridArr[1] && gameGridArr[1] == gameGridArr[2]) {
-        matchLineArr[0] = gameGridArr[0]; //add top line winning char to top line position
-        //this matches the top line
-        //we need to draw a horizontal line at the top
-        //we need to get the coords from the array and draw line
+        matchLineArr[0] = gameGridArr[0];
     }
     if (gameGridArr[3] == gameGridArr[4] && gameGridArr[4] == gameGridArr[5]) {
         matchLineArr[1] = gameGridArr[3];
@@ -204,16 +161,10 @@ const fnGetMatchingLines = () => {
         matchLineArr[7] = gameGridArr[6];
     }
     console.log(matchLineArr);
-    fnDrawLine(matchLineArr);
+    //setTimeout(() => fnDrawLine(matchLineArr), 100); //This is an experimental feature uncomment this for winning line. This will break buttons though
     return matchLineArr;
 };
 
-// const fnDrawWinLines = () => {
-//     const lineArr = fnGetMatchingLines();
-// };
-
-//there can only be 1 winner so there will never be an o and x line
-//at the same time
 const fnCheckWin = () => {
     if (fnGetMatchingLines().includes("x")) {
         return "x";
@@ -222,18 +173,7 @@ const fnCheckWin = () => {
     }
 };
 
-//console.log(`${fnCheckWin()} Won The Game`);
-
-// bGrid.forEach((box) {
-//     box.addEventListener("click", handlePlaceXO)
-
-// })
-
 gameGrid.forEach((box) => {
-    //for each element in the class
-    console.dir(box); //send the element info in console
-
-    //Gets the center coordinates of every box
     const xcoord =
         box.getBoundingClientRect().x + box.getBoundingClientRect().width / 2;
     const ycoord =
@@ -262,16 +202,16 @@ gameGrid.forEach((box) => {
             }
 
             if (fnCheckWin() == "o" || fnCheckWin() == "x") {
+                console.log(bNewGame);
                 isGameInProgress = false;
                 console.log(`${fnCheckWin()} Won the game`);
                 bNewGame.innerText = "NEW GAME";
-                setTimeout(() => alert(`${fnCheckWin()} Won the game`), 100);
                 gameTitle.innerText = `${fnCheckWin().toUpperCase()} WON THE GAME`;
+                console.log(bNewGame);
             } else {
                 if (!gameGridArr.includes("")) {
                     isGameInProgress = false;
                     console.log(`DRAW!`);
-                    bNewGame.innerText = "NEW GAME";
                     setTimeout(() => alert(`DRAW`), 100);
                     gameTitle.innerText = `DRAW!`;
                 }
@@ -279,7 +219,3 @@ gameGrid.forEach((box) => {
         }
     });
 });
-
-//const fnComputerAsPlayer
-//localStorage.setItem("pageLoadCount", 1);
-//console.log(localStorage.getItem("pageLoadCount"));
